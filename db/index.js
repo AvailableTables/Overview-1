@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-mongoose.connect('mongodb://maria:0237100t@ds147073.mlab.com:47073/tableopen') //hosted version from mlab
+mongoose.connect('mongodb://localhost/restaurants') //hosted version from mlab
 
 const db = mongoose.connection;
 autoIncrement.initialize(db);

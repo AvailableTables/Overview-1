@@ -18,5 +18,4 @@ const MyMapComponent = withScriptjs(
     </GoogleMap>
   ))
 );
-
 export default MyMapComponent;

@@ -31,10 +31,8 @@ var private_party_contact_name = nameData.slice(100, 200);
 var cross_street = ['Broadway', 'Madison', 'Between 5th and 6th ave', '43rd St. (southeast corner)', 'West 49th Street', 'Between E. 38th & E 39th Streets', 'Between 27th & 28th', '13th Street', '16th Street', 'Between Park and Broadway', '26th Street', '30th Street', 'Between Broadway and 8th Avenue', '24th Street']
 var parking_details = ['There are two independent parking garages adjacent to the restaurant.', 'We validate parking at a discounted price only after 5PM. $14 upto 2.5 hours or $17 upto 4 hours.', 'Street Parking where available. The nearest garage is on 36th street off of 7th Ave.', 'Street parking after 7:00PM. We validate parking (after 5pm) at Meyers Parking 9-19 west 35th street', 'Street parking after 6pm M-F Weekends all day']
 var public_transit = ['R/W (yellow line) trains at 28th and Broadway, 1 train at 28th and 7th Avenue', '1, 2, 3, 7, 9 N, R, W, & Q trains to 42nd Street/Times Square.', 'Near Herald Square 34th st: N, Q, R, F, M; Near Penn Station 34th St: 1, 2, 3, A, C, E', '23rd street stop, 6 line 23rd street stop, N,R lines 23rd street stop, F, M lines Union Square']
-// var private_party_contact_number_area_code = ['212', '646'];
 var additional = ['Banquet, Bar Dining, Bar/Lounge, Beer, BYO Wine, Chef\'s Table, Corkage Fee, Counter Seating, Full Bar, Outdoor dining, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Bar/Lounge, Full Bar, Late Night, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Full Bar, Late Night, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Late Night, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Weekend Brunch, Wine', 'Bar Dining, Wine']
-// var name_values = []; // from yelp API
-// var review_count // yelp
+
 
 const authstr = 'Bearer '.concat(config.YELP_API_KEY);
 
@@ -59,8 +57,7 @@ axios.get('https://api.yelp.com/v3/businesses/search', {
       info.display_phone = business.display_phone;
       info.coordinates = business.coordinates;
       info.website = 'http://www.' + business.name.replace(" ", "") + '.com';
-      // console.log('info is', info);
-      // model.save(info);
+    
       var newOverview = new db.Overview({
         OverviewChildSchema: info,
         aggregate_score: Math.random() * (5 - 3) + 3,
@@ -130,8 +127,7 @@ axios.get('https://api.yelp.com/v3/businesses/search', {
           console.log(err);
         }
       })
-      // console.log('data is saved!')
-      // allBusinesses.push(info);
+   
     })
   })
   .catch(function(err) {
