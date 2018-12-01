@@ -1,27 +1,25 @@
 const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
+// const autoIncrement = require('mongoose-auto-increment');
+
 
 mongoose.connect('mongodb://localhost/restaurants') //hosted version from mlab
 
 const db = mongoose.connection;
-autoIncrement.initialize(db);
+// autoIncrement.initialize(db);
 
 const Schema = mongoose.Schema;
 
 mongoose.set('useCreateIndex', true)
 
-const OverviewChildSchema = new Schema({
+
+const OverviewSchema = new Schema({
+  rid: {type: Number, required: true},
   name: {type: String, required: true}, //
   review_count: Number, //
   display_address: Array, //
   display_phone: String, //
   coordinates: Object, //
-  website: String //
-})
-
-const OverviewSchema = new Schema({
-  rid: {type: Number, required: true},
-  OverviewChildSchema, //
+  website: String, //
   aggregate_score: Number, //
   price_quantile: String, //
   cuisine: Array, //
@@ -48,11 +46,11 @@ const OverviewSchema = new Schema({
   private_dining_details: String //
 })
 
-OverviewSchema.plugin(autoIncrement.plugin, {model: 'Overview', field: 'rid', startAt: 1, incrementBy: 1})
-const Overview = mongoose.model('Overview', OverviewSchema);
+// OverviewSchema.plugin(autoIncrement.plugin, {model: 'Overview', field: 'rid', startAt: 1, incrementBy: 1})
+const Overview = mongoose.model('Overview', OverviewSchema, 'overview');
 
 mongoose.Promise = Promise;
-db.on('error', () => {
+db.on('error', (err) => {
   console.log('Mongoose default connection error:', err);
 })
 db.once('open', () => {
@@ -61,3 +59,18 @@ db.once('open', () => {
 
 module.exports.db = db;
 module.exports.Overview = Overview;
+
+// const { Client } = require('pg')
+// const client = new Client({
+//   user: 'elizabethlang',
+//   database: 'test'
+// })
+
+// client.connect()
+
+// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+//   console.log(err ? err.stack : res.rows[0].message) // Hello World!
+//   client.end()
+// });
+
+

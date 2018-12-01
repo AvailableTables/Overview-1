@@ -25,7 +25,8 @@ class App extends React.Component {
       .get(`/api/${id}`)
       .then(({ data }) => {
         this.setState({
-          restaurant: data[0]
+          
+          restaurant: data.data
         });
       })
       .catch(err => {
@@ -34,13 +35,14 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.restaurant.OverviewChildSchema) {
+  
+    if (this.state.restaurant) {
       if (this.state.restaurant.private_dining) {
         return (
           <div className="container">
             <div>
               <h1 id="name">
-                {this.state.restaurant.OverviewChildSchema.name}
+                {this.state.restaurant.name}
               </h1>
               <hr />
             </div>
@@ -51,7 +53,7 @@ class App extends React.Component {
               </span>
               <i className="far fa-comment-alt fa-lg fa-flip-horizontal" />
               <span className="topBar">
-                {this.state.restaurant.OverviewChildSchema.review_count} reviews
+                {this.state.restaurant.review_count} reviews
               </span>
               <svg
                 width="24px"
@@ -187,7 +189,7 @@ class App extends React.Component {
               <Description description={this.state.restaurant.description} />
             </div>
             <div>
-              <DetailsWithPrivateDining restaurant={this.state.restaurant} />
+              <DetailsWithPrivateDining restaurant={this.state.restaurant.private_party_facilities} />
             </div>
           </div>
         );
@@ -196,7 +198,7 @@ class App extends React.Component {
           <div className="container">
             <div>
               <h1 id="name">
-                {this.state.restaurant.OverviewChildSchema.name}
+                {this.state.restaurant.name}
               </h1>
               <hr />
             </div>
@@ -208,7 +210,7 @@ class App extends React.Component {
               <i className="far fa-comment-alt fa-lg fa-flip-horizontal" />
               <span className="topBar">
                 {" "}
-                {this.state.restaurant.OverviewChildSchema.review_count} reviews
+                {this.state.restaurant.review_count} reviews
               </span>
               <svg
                 width="24px"

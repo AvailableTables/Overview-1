@@ -1,3 +1,4 @@
+
 var data = [
   {
     name: "Chelsea"
@@ -36,6 +37,17 @@ var data = [
     name: "Turtle Bay"
   }
 ];
+
+// var generateData = function(object) {
+//   var newArray = [];
+ 
+//   var counter = 0; 
+//   for (var i = 0; i < 10; i++) {
+//     var place =  faker.address.city(); 
+//     newArray.push(place);
+//   }
+//   return newArray;
+// };
 
 var generateData = function(object) {
   var newArray = [];

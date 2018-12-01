@@ -1,3 +1,5 @@
+const faker = require('faker');
+
 var data = [{"full_name":"Westbrook Hodge"},
 {"full_name":"Henka Silman"},
 {"full_name":"Skelly Trebilcock"},
@@ -206,5 +208,19 @@ var generateData = function(object) {
   }
   return newArray;
 }
+
+// var generateNames = () => {
+//   var result = []; 
+//    var count = 0; 
+//    for (var i=count; i < 10; i++){
+//     count++; 
+//     while (i < count){
+//       result.push(faker.name.findName()) 
+//     }
+//    }
+//    console.log(result.length)
+//   return result; 
+  
+// }
 
 module.exports = generateData(data);

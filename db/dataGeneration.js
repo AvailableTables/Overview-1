@@ -5,7 +5,12 @@ var phoneNumberData = require('./phone_number_data.js');
 var loremIpsum = require('lorem-ipsum');
 var axios = require('axios');
 var config = require('../config.js');
-var db = require('../db/index.js');
+var faker = require('faker');
+var {db, Overview} = require('../db/index.js');
+var fs = require('fs');
+
+// var MongoClient = require('mongodb').MongoClient; 
+// var url = 'mongodb://localhost:3010';
 
 var price_symbols = ['$30 and under', '$31 to $50', '$50 and over'];
 var cuisines = ['American', 'Italian', 'Steakhouse', 'Seafood', 'French', 'Indian', 'Mexican', 'Japanese', 'British', 'Chinese', 'German', 'Spanish', 
@@ -34,104 +39,92 @@ var public_transit = ['R/W (yellow line) trains at 28th and Broadway, 1 train at
 var additional = ['Banquet, Bar Dining, Bar/Lounge, Beer, BYO Wine, Chef\'s Table, Corkage Fee, Counter Seating, Full Bar, Outdoor dining, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Bar/Lounge, Full Bar, Late Night, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Full Bar, Late Night, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Late Night, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Private Room, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Weekend Brunch, Wheelchair Access, Wine', 'Bar Dining, Weekend Brunch, Wine', 'Bar Dining, Wine']
 
 
-const authstr = 'Bearer '.concat(config.YELP_API_KEY);
+const start = Date.now();
+var iterationCount = 0;
+var count = 0;
+var callData = () => {
+  var data = '';
+  var batch = 0;
 
-axios.get('https://api.yelp.com/v3/businesses/search', {
-  params: {
-    term: 'restaurants',
-    latitude: '40.725937',
-    longitude: '-74.008256',
-    limit: 50 // only can get up to 50 results from the Yelp API
-  },
-  headers: {
-    Authorization: authstr
+  while (batch < 10000) {
+    batch++
+    count++
+      var rest = {};
+      rest.rid = count;
+      rest.name = faker.lorem.word();
+      rest.review_count = Math.floor(Math.random() * (100 - 1) + 1);
+      rest.diplay_address = faker.address.streetAddress();
+      rest.display_phone = faker.phone.phoneNumberFormat();
+      rest.website = 'http://www.' + faker.lorem.word().replace(" ", "") + '.com';
+      rest.aggregate_score = Math.random() * (5 - 3) + 3,
+      rest.price_quantile = price_symbols[Math.floor(Math.random() * price_symbols.length)],
+      rest.cuisine = [cuisines[Math.floor(Math.random() * cuisines.length)], cuisines[Math.floor(Math.random() * cuisines.length)]],
+      rest.tags = [tagData[Math.floor(Math.random() * tagData.length)], tagData[Math.floor(Math.random() * tagData.length)], tagData[Math.floor(Math.random() * tagData.length)]],
+      rest.private_dining = private_dining[Math.floor(Math.random() * private_dining.length)],
+      rest.dining_style = dining_style[Math.floor(Math.random() * dining_style.length)],
+      rest.reshours = hours[Math.floor(Math.random() * hours.length)],
+      rest.payment_options = payment_options[Math.floor(Math.random() * payment_options.length)],
+      rest.dress_code = dress_code[Math.floor(Math.random() * dress_code.length)],
+      rest.executive_chef = executive_chef[Math.floor(Math.random() * executive_chef.length)],
+      rest.catering = faker.lorem.sentences(),
+      rest.private_party_facilities = private_party_facilities[Math.floor(Math.random() * private_party_facilities.length)],
+      rest.private_party_contact_name = private_party_contact_name[Math.floor(Math.random() * private_party_contact_name.length)],
+      rest.private_party_contact_number = phone_number_area_code[Math.floor(Math.random() * phone_number_area_code.length)] + phoneNumberData[Math.floor(Math.random() * phoneNumberData.length)],
+      rest.neighborhood = neighborhoodData[Math.floor(Math.random() * neighborhoodData.length)],
+      rest.cross_street = cross_street[Math.floor(Math.random() * cross_street.length)],
+      rest.parking_details = parking_details[Math.floor(Math.random() * parking_details.length)],
+      rest.public_transit = public_transit[Math.floor(Math.random() * public_transit.length)],
+      rest.entertainment = faker.lorem.sentences(),
+      rest.special_events_promotions = faker.lorem.sentences(),
+      rest.additional = additional[Math.floor(Math.random() * additional.length)],
+      iterationCount++
+    data += JSON.stringify(rest)
+
+
+    // console.log('data in while loop', data)
   }
-})
-  .then(({data}) => {
-    var businesses = JSON.parse(JSON.stringify(data.businesses));
-    businesses.map((business) => {
-      var info = {};
-      info.name = business.name;
-      info.review_count = business.review_count;
-      info.display_address = business.location.display_address;
-      info.display_phone = business.display_phone;
-      info.coordinates = business.coordinates;
-      info.website = 'http://www.' + business.name.replace(" ", "") + '.com';
-    
-      var newOverview = new db.Overview({
-        OverviewChildSchema: info,
-        aggregate_score: Math.random() * (5 - 3) + 3,
-        price_quantile: price_symbols[Math.floor(Math.random() * price_symbols.length)],
-        cuisine: [cuisines[Math.floor(Math.random() * cuisines.length)],cuisines[Math.floor(Math.random() * cuisines.length)]],
-        tags: [tagData[Math.floor(Math.random() * tagData.length)], tagData[Math.floor(Math.random() * tagData.length)], tagData[Math.floor(Math.random() * tagData.length)]],
-        description: loremIpsum({
-          count: 2,
-          units: 'paragraphs',
-          sentenceLowerBound: 5,
-          sentenceUpperBound: 15,
-          paragraphLowerBound: 3,
-          paragraphUpperBound: 7,
-          format: 'plain'
-        }),
-        private_dining: private_dining[Math.floor(Math.random() * private_dining.length)],
-        dining_style: dining_style[Math.floor(Math.random() * dining_style.length)],
-        hours: hours[Math.floor(Math.random() * hours.length)],
-        payment_options: payment_options[Math.floor(Math.random() * payment_options.length)],
-        dress_code: dress_code[Math.floor(Math.random() * dress_code.length)],
-        executive_chef: executive_chef[Math.floor(Math.random() * executive_chef.length)],
-        catering: loremIpsum({
-          count: 2,
-          units: 'paragraphs',
-          sentenceLowerBound: 5,
-          sentenceUpperBound: 15,
-          paragraphLowerBound: 1,
-          paragraphUpperBound: 2,
-          format: 'plain'
-        }),
-        private_party_facilities: private_party_facilities[Math.floor(Math.random() * private_party_facilities.length)],
-        private_party_contact_name: private_party_contact_name[Math.floor(Math.random() * private_party_contact_name.length)],
-        private_party_contact_number: phone_number_area_code[Math.floor(Math.random() * phone_number_area_code.length)] + phoneNumberData[Math.floor(Math.random() * phoneNumberData.length)],
-        neighborhood: neighborhoodData[Math.floor(Math.random() * neighborhoodData.length)],
-        cross_street: cross_street[Math.floor(Math.random() * cross_street.length)],
-        parking_details: parking_details[Math.floor(Math.random() * parking_details.length)],
-        public_transit: public_transit[Math.floor(Math.random() * public_transit.length)],
-        entertainment: loremIpsum({
-          count: 1,
-          units: 'sentences',
-          sentenceLowerBound: 10,
-          sentenceUpperBound: 20,
-          format: 'plain'
-        }),
-        special_events_promotions: loremIpsum({
-          count: 2,
-          units: 'paragraphs',
-          sentenceLowerBound: 5,
-          sentenceUpperBound: 15,
-          paragraphLowerBound: 1,
-          paragraphUpperBound: 3,
-          format: 'plain'
-        }),
-        additional: additional[Math.floor(Math.random() * additional.length)],
-        private_dining_details: loremIpsum({
-          count: 1,
-          units: 'paragraphs',
-          sentenceLowerBound: 5,
-          sentenceUpperBound: 10,
-          paragraphLowerBound: 1,
-          paragraphUpperBound: 3,
-          format: 'plain'
-        })
-      })
-      newOverview.save((err) => {
-        if (err) {
-          console.log(err);
-        }
-      })
-   
-    })
-  })
-  .catch(function(err) {
-    if (err) {
-      console.log(err);
+  // console.log('THE DATA', data)
+  // return data; 
+
+  // stream.on('drain', function() {
+  //   console.log('drain');
+  //   console.log(Date.now() - start) // never happen
+  // });
+  // stream.write(data)
+  // i++
+  return data;
+
+  // writeData('./rest.txt',data)
+}
+
+var stream = fs.createWriteStream(__dirname + '/test.csv');
+
+stream.on('drain', function () {
+  console.log('DRAIN called', iterationCount, count)
+  write();
+});
+write();
+
+
+ function write() {
+  while (iterationCount < 1000) { // 1Gtimes
+  
+    if (!stream.write(callData())) {
+      return;
     }
-  })
+  }
+
+  console.log((Date.now() - start) / 1000)
+ stream.end();
+}
+
+
+
+
+
+
+
+
+ // console.log(callData())
+// writeData('./names.txt', 'hiiiiiiii', ()=> (console.log('can you please work?')))
+// writeData('./newFile.txt',callData()

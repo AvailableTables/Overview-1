@@ -337,7 +337,7 @@ class DetailsWithPrivateDining extends React.Component {
                       <br />
                       <span className="sectionDescription">
                         {
-                          this.props.restaurant.OverviewChildSchema
+                          this.props.restaurant
                             .display_phone
                         }
                       </span>
@@ -392,7 +392,7 @@ class DetailsWithPrivateDining extends React.Component {
                       <div>Website</div>
                       <a className="hyperlink" href="www.amelie.com">
                         <span>
-                          {this.props.restaurant.OverviewChildSchema.website}
+                          {this.props.restaurant.website}
                         </span>
                       </a>
                       <br />
@@ -831,11 +831,11 @@ class DetailsWithPrivateDining extends React.Component {
                 <div className="column1">
                   <Map
                     latitude={
-                      this.props.restaurant.OverviewChildSchema.coordinates
+                      this.props.restaurant.coordinates
                         .latitude
                     }
                     longitude={
-                      this.props.restaurant.OverviewChildSchema.coordinates
+                      this.props.restaurant.coordinates
                         .longitude
                     }
                   />
@@ -885,7 +885,7 @@ class DetailsWithPrivateDining extends React.Component {
                     </div>
                     <div className="column3">
                       <div className="hyperlink">
-                        {this.props.restaurant.OverviewChildSchema.display_address.map((
+                        {this.props.restaurant.display_address.map((
                           address, index) => {
                             return <span key={index}>{address} </span>;
                           }
@@ -1852,7 +1852,7 @@ class DetailsWithPrivateDining extends React.Component {
                   <span className="sectionName">Phone number</span>
                   <br />
                   <span className="sectionDescription">
-                    {this.props.restaurant.OverviewChildSchema.display_phone}
+                    {this.props.restaurant.display_phone}
                   </span>
                   <br />
                 </div>
@@ -1905,7 +1905,7 @@ class DetailsWithPrivateDining extends React.Component {
                   <div>Website</div>
                   <a className="hyperlink" href="www.amelie.com">
                     <span>
-                      {this.props.restaurant.OverviewChildSchema.website}
+                      {this.props.restaurant.website}
                     </span>
                   </a>
                   <br />
@@ -2338,10 +2338,10 @@ class DetailsWithPrivateDining extends React.Component {
             <div className="column1">
               <Map
                 latitude={
-                  this.props.restaurant.OverviewChildSchema.coordinates.latitude
+                  this.props.restaurant.coordinates.latitude
                 }
                 longitude={
-                  this.props.restaurant.OverviewChildSchema.coordinates
+                  this.props.restaurant.coordinates
                     .longitude
                 }
               />
@@ -2391,7 +2391,7 @@ class DetailsWithPrivateDining extends React.Component {
                 </div>
                 <div className="column3">
                   <div className="hyperlink">
-                    {this.props.restaurant.OverviewChildSchema.display_address.map((
+                    {this.props.restaurant.display_address.map((
                       address, index) => {
                         return <span key={index}>{address} </span>;
                       }

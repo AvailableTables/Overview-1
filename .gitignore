@@ -25,3 +25,12 @@ build/
 # dist/
 
 config.js
+
+
+#data file
+
+rests.txt
+
+
+dbrestPG.csv
+
