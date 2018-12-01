@@ -45,7 +45,7 @@ var callData = () => {
   while (batch < 1000) {
       batch++
       count++
-    //   console.log("BATCH", batch)
+  
       str = ''; 
       str += count + '^'; 
       str += faker.lorem.word() + '^';
@@ -57,6 +57,7 @@ var callData = () => {
       str += price_symbols[Math.floor(Math.random() * price_symbols.length)] + '^',
       str += JSON.stringify([cuisines[Math.floor(Math.random() * cuisines.length)], cuisines[Math.floor(Math.random() * cuisines.length)]]) + '^',
       str += JSON.stringify([tagData[Math.floor(Math.random() * tagData.length)], tagData[Math.floor(Math.random() * tagData.length)], tagData[Math.floor(Math.random() * tagData.length)]]) + '^',
+      str += faker.lorem.sentences() +'^',
       str += private_dining[Math.floor(Math.random() * private_dining.length)] + '^',
       str += dining_style[Math.floor(Math.random() * dining_style.length)] + '^',
       str += hours[Math.floor(Math.random() * hours.length)] + '^',
@@ -95,7 +96,7 @@ var callData = () => {
   // writeData('./rest.txt',data)
 }
 
-var stream = fs.createWriteStream(__dirname + 'restPG.csv');
+var stream = fs.createWriteStream(__dirname + 'pg.csv');
 
 stream.on('drain', function () {
   console.log('DRAIN called', iterationCount)

@@ -23,7 +23,7 @@ class Rating extends React.Component {
   render() {
     return (
       <StarRatings
-        rating={this.state.rating}
+        rating={Number(this.state.rating)}
         starRatedColor="#da3743"
         starDimension="16px"
         starSpacing="1px"

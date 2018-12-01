@@ -17,16 +17,19 @@ class Description extends React.Component {
 
   render() { 
     if (this.state.readState) {
+      console.log('PROPS',this.props.description)
       return ( 
         <div>
           <div id="descriptionReadFalse">{this.props.description}</div>
           <a className="hyperlink" onClick={this.handleClick}>- Read less</a>
         </div>
       );
-    } else {
+    }
+     else {
+      console.log('PROPS',this.props.description)
       return (
         <div>
-          <div id="descriptionReadTrue">{this.props.description.slice(0, 294)}</div>
+          <div id="descriptionReadTrue">{this.props.description}</div>
           <a className="hyperlink" onClick={this.handleClick}>+ Read more</a>
         </div>
       )

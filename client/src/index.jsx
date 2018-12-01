@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurant: {}
+      restaurant: null
     };
     this.getRestaurant = this.getRestaurant.bind(this);
   }
@@ -24,9 +24,10 @@ class App extends React.Component {
     axios
       .get(`/api/${id}`)
       .then(({ data }) => {
+        console.log('Data',data)
         this.setState({
-          
-          restaurant: data.data
+      
+          restaurant: data[0]
         });
       })
       .catch(err => {
@@ -38,6 +39,10 @@ class App extends React.Component {
   
     if (this.state.restaurant) {
       if (this.state.restaurant.private_dining) {
+        console.log('webpack')
+        console.log(this.state.restaurant.cuisine)
+        console.log(this.state.restaurant.decriptions)
+
         return (
           <div className="container">
             <div>
@@ -49,7 +54,7 @@ class App extends React.Component {
             <div className="header">
               <Rating rating={this.state.restaurant.aggregate_score} />
               <span className="topBar">
-                {this.state.restaurant.aggregate_score.toFixed(1)}
+                {Number(this.state.restaurant.aggregate_score).toFixed(1)}
               </span>
               <i className="far fa-comment-alt fa-lg fa-flip-horizontal" />
               <span className="topBar">
@@ -171,11 +176,11 @@ class App extends React.Component {
                   </g>
                 </g>
               </svg>
-              <span className="topBar">{this.state.restaurant.cuisine[0]}</span>
+              <span className="topBar">{this.state.restaurant.cuisine.slice(1,-2).split(',')[0]}</span>
             </div>
             <div id="ulTag">
               <span id="tag">Top Tags:</span>
-              {this.state.restaurant.tags.map((tag, index) => {
+              {this.state.restaurant.tags.slice(1).split(',').map((tag, index) => {
                 return (
                   <li className="liTag" key={index}>
                     <div className="divTag">
@@ -186,10 +191,10 @@ class App extends React.Component {
               })}
             </div>
             <div>
-              <Description description={this.state.restaurant.description} />
+              <Description description={this.state.restaurant.decriptions} />
             </div>
             <div>
-              <DetailsWithPrivateDining restaurant={this.state.restaurant.private_party_facilities} />
+              <DetailsWithPrivateDining restaurant={this.state.restaurant} />
             </div>
           </div>
         );
@@ -205,7 +210,7 @@ class App extends React.Component {
             <div className="header">
               <Rating rating={this.state.restaurant.aggregate_score} />
               <span className="topBar">
-                {this.state.restaurant.aggregate_score.toFixed(1)}
+                {Number(this.state.restaurant.aggregate_score).toFixed(1)}
               </span>
               <i className="far fa-comment-alt fa-lg fa-flip-horizontal" />
               <span className="topBar">
@@ -328,11 +333,11 @@ class App extends React.Component {
                   </g>
                 </g>
               </svg>
-              <span className="topBar">{this.state.restaurant.cuisine[0]}</span>
+              {/* <span className="topBar">{this.state.restaurant.cuisine.slice(1).split(',')[0]}</span> */}
             </div>
             <div id="ulTag">
               <span id="tag">Top Tags:</span>
-              {this.state.restaurant.tags.map((tag, index) => {
+              {this.state.restaurant.tags.slice(1,-2).split('').map((tag, index) => {
                 return (
                   <li className="liTag" key={index}>
                     <div className="divTag">
@@ -343,7 +348,8 @@ class App extends React.Component {
               })}
             </div>
             <div>
-              <Description description={this.state.restaurant.description} />
+            
+              <Description description={this.state.restaurant.decriptions} />
             </div>
             <div>
               <Details restaurant={this.state.restaurant} />
@@ -352,9 +358,10 @@ class App extends React.Component {
         );
       }
     } else {
-      return <div />;
+      return <div> Loading... </div>;
     }
   }
 }
 
 export default App;
+

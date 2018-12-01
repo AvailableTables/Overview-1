@@ -9,8 +9,10 @@
     "pg": "time psql postgres < db/schema.sql ",
     "server-dev": "node server/index.js",
     "test": "jest",
-    "mongoPopulate": "time mongoimport --db restaurants --collection overview --file db/rests.txt",
-    "seed": "node db/dataGeneration.js"
+    "mongoPopulate": "time mongoimport --db restaurants --collection overview --file db/dataGeneration.csv",
+    "pgPopulate": "time node db/schema.sql",
+    "seed": "node db/dataGeneration.js",
+    "pgSeed": "node db/sqldatageneration.js"
   },
   "author": "Maria Chung",
   "contributor": "Elizabeth Lang",

@@ -1,7 +1,9 @@
-const { Client } = require('pg')
-const client = new Client({
+const { Pool } = require('pg')
+const client = new Pool({
     user: 'elizabethlang', 
-    database: 'postgres'
+    database: 'postgres',
+    host: 'localhost',
+    password: 'Annabelle'
 })
 
 client.connect()

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const model = require('../models/overviewModel.js')
 const path = require('path');
-const db = require('../../db/index.js');
+// const db = require('../../db/index.js');
 var connection = require('../../db/postgresIndex.js')
 
 
@@ -9,18 +9,10 @@ var connection = require('../../db/postgresIndex.js')
 // const {handleGettingUserId} = require('.../db/methods.js')
 module.exports = {
   get: (req, res) => {
-    // console.log('in get')
-    // console.log(req.body)
-    // res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+    
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+      
 
-    let id = [req.params.id];
-    model.get(id, (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(data.rows);
-      }
-    });
   },
 
   getRestaurant: (req, res) => {

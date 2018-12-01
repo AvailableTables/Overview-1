@@ -4,7 +4,7 @@ var nameData = require('./name_data.js');
 var phoneNumberData = require('./phone_number_data.js');
 var loremIpsum = require('lorem-ipsum');
 var axios = require('axios');
-var config = require('../config.js');
+// var config = require('../config.js');
 var faker = require('faker');
 var {db, Overview} = require('../db/index.js');
 var fs = require('fs');
@@ -42,6 +42,7 @@ var additional = ['Banquet, Bar Dining, Bar/Lounge, Beer, BYO Wine, Chef\'s Tabl
 const start = Date.now();
 var iterationCount = 0;
 var count = 0;
+
 var callData = () => {
   var data = '';
   var batch = 0;
@@ -97,7 +98,7 @@ var callData = () => {
   // writeData('./rest.txt',data)
 }
 
-var stream = fs.createWriteStream(__dirname + '/test.csv');
+var stream = fs.createWriteStream(__dirname + '/dataGeneration.csv');
 
 stream.on('drain', function () {
   console.log('DRAIN called', iterationCount, count)
@@ -107,14 +108,14 @@ write();
 
 
  function write() {
-  while (iterationCount < 1000) { // 1Gtimes
+  while (iterationCount < 10000000) { // 1Gtimes
   
     if (!stream.write(callData())) {
       return;
     }
   }
 
-  console.log((Date.now() - start) / 1000)
+  // console.log((Date.now() - start) / 1000)
  stream.end();
 }
 

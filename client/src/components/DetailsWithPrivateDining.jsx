@@ -19,6 +19,7 @@ class DetailsWithPrivateDining extends React.Component {
 
   render() {
     if (!this.state.readDetails) {
+      console.log('IN DWPD',this.props.restaurant)
       return (
         <div>
           <div id="table">
@@ -210,7 +211,7 @@ class DetailsWithPrivateDining extends React.Component {
                     <div className="column3">
                       <span className="sectionName">Cuisines</span>
                       <br />
-                      {this.props.restaurant.cuisine.map((food, index) => {
+                      {this.props.restaurant.cuisine.slice(1,-2).split(',').map((food, index) => {
                         if (
                           index ===
                           this.props.restaurant.cuisine.length - 1
@@ -285,7 +286,7 @@ class DetailsWithPrivateDining extends React.Component {
                       <span className="sectionName">Hours of operation</span>
                       <br />
                       <span className="sectionDescription">
-                        {this.props.restaurant.hours.map((hour, index) => {
+                        {this.props.restaurant.hour.split(',').map((hour, index) => {
                           return (
                             <li style={{ listStyleType: "none" }} key={index}>{hour}</li>
                           );
@@ -829,7 +830,7 @@ class DetailsWithPrivateDining extends React.Component {
                   </div>
                 </div>
                 <div className="column1">
-                  <Map
+                  {/* <Map
                     latitude={
                       this.props.restaurant.coordinates
                         .latitude
@@ -838,7 +839,7 @@ class DetailsWithPrivateDining extends React.Component {
                       this.props.restaurant.coordinates
                         .longitude
                     }
-                  />
+                  /> */}
                   <div className="row">
                     <div className="column2">
                       <svg
@@ -885,11 +886,8 @@ class DetailsWithPrivateDining extends React.Component {
                     </div>
                     <div className="column3">
                       <div className="hyperlink">
-                        {this.props.restaurant.display_address.map((
-                          address, index) => {
-                            return <span key={index}>{address} </span>;
-                          }
-                        )}
+                        {this.props.restaurant.display_address}
+   
                       </div>
                     </div>
                   </div>
@@ -1741,7 +1739,7 @@ class DetailsWithPrivateDining extends React.Component {
                 <div className="column3">
                   <span className="sectionName">Cuisines</span>
                   <br />
-                  {this.props.restaurant.cuisine.map((food, index) => {
+                  {this.props.restaurant.cuisine.slice(1,-2).split(',').map((food, index) => {
                     if (index === this.props.restaurant.cuisine.length - 1) {
                       return <span className="sectionDescription" key={index}>{food}</span>;
                     }
@@ -1803,7 +1801,7 @@ class DetailsWithPrivateDining extends React.Component {
                   <span className="sectionName">Hours of operation</span>
                   <br />
                   <span className="sectionDescription">
-                    {this.props.restaurant.hours.map((hour, index) => {
+                    {this.props.restaurant.hour.split(',').map((hour, index) => {
                       return <li style={{ listStyleType: "none" }} key={index}>{hour}</li>;
                     })}
                   </span>
@@ -2336,14 +2334,14 @@ class DetailsWithPrivateDining extends React.Component {
               </div>
             </div>
             <div className="column1">
-              <Map
+              {/* <Map
                 latitude={
                   this.props.restaurant.coordinates.latitude
                 }
                 longitude={
                   this.props.restaurant.coordinates
                     .longitude
-                }
+                } */}
               />
               <div className="row">
                 <div className="column2">
@@ -2391,9 +2389,7 @@ class DetailsWithPrivateDining extends React.Component {
                 </div>
                 <div className="column3">
                   <div className="hyperlink">
-                    {this.props.restaurant.display_address.map((
-                      address, index) => {
-                        return <span key={index}>{address} </span>;
+                    {this.props.restaurant.display_address}
                       }
                     )}
                   </div>
