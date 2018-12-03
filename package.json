@@ -12,7 +12,8 @@
     "mongoPopulate": "time mongoimport --db restaurants --collection overview --file db/dataGeneration.csv",
     "pgPopulate": "time node db/schema.sql",
     "seed": "node db/dataGeneration.js",
-    "pgSeed": "node db/sqldatageneration.js"
+    "pgSeed": "node db/sqldatageneration.js",
+    "aws-db-connect": "chmod 400 pg.pem  && ssh -i \"pg.pem\" ubuntu@ec2-3-16-49-251.us-east-2.compute.amazonaws.com"
   },
   "author": "Maria Chung",
   "contributor": "Elizabeth Lang",

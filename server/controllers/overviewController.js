@@ -14,24 +14,36 @@ module.exports = {
       
 
   },
+//   var props = { title: 'Universal React' };
+//   var html = ReactDOMServer.renderToString(
+//       React.createElement(Component, props)
+//   );
+//   response.send(html);
+// });
 
   getRestaurant: (req, res) => {
 // console.log("THIS IS A req.params", req.params.id)
 // // console.log('this is the ntype of params', typeof(parseInt(req.params.id))
 
+
 let id = [req.params.id];
-console.log("ID",id)
+
 connection.query(`SELECT * FROM restaurants.overview WHERE rid =${id}`, (err, data) => {
-  console.log('IN CONN QUERY')
-  console.log("ID IN CONN QUERY", id)
-  // console.log("INFO IN CONN QUERY", info)
   if (err) {
       console.log(err);
   } else {
-      // console.log("DATA",data.rows)
       
-      res.send(data.rows);
+      res.send(data.rows[0]);
   }
+
+
+// connection.query(`SELECT * FROM restaurants.overview WHERE rid =${id}`, (err, data) => {
+//   if (err) {
+//       console.log(err);
+//   } else {
+      
+//       res.send(ReactDomServer.renderToString(React.createElement(Overview,data.rows[0])));
+//   }
 });
 
 // model.get(id, (err,data) => {

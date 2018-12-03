@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurant: null
+      restaurant: null 
     };
     this.getRestaurant = this.getRestaurant.bind(this);
   }
@@ -24,10 +24,9 @@ class App extends React.Component {
     axios
       .get(`/api/${id}`)
       .then(({ data }) => {
-        console.log('Data',data)
+        console.log('data',data)
         this.setState({
-      
-          restaurant: data[0]
+          restaurant: data
         });
       })
       .catch(err => {
