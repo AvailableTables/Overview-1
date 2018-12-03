@@ -6,25 +6,24 @@ import Description from "./components/Description.jsx";
 import DetailsWithPrivateDining from "./components/DetailsWithPrivateDining.jsx";
 import Details from "./components/Details.jsx";
 
-class App extends React.Component {
+class Overview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurant: null 
+      restaurant: null || this.props
     };
     this.getRestaurant = this.getRestaurant.bind(this);
   }
 
-  componentDidMount() {
-    var id = window.location.pathname.slice(13);
-    this.getRestaurant(id);
-  }
+  // componentDidMount() {
+  //   var id = window.location.pathname.slice(13);
+  //   this.getRestaurant(id);
+  // }
 
   getRestaurant(id) {
     axios
       .get(`/api/${id}`)
       .then(({ data }) => {
-        console.log('data',data)
         this.setState({
           restaurant: data
         });
@@ -36,12 +35,9 @@ class App extends React.Component {
 
   render() {
   
-    if (this.state.restaurant) {
+    if (this.props) {
       if (this.state.restaurant.private_dining) {
-        console.log('webpack')
-        console.log(this.state.restaurant.cuisine)
-        console.log(this.state.restaurant.decriptions)
-
+  
         return (
           <div className="container">
             <div>
@@ -362,5 +358,5 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Overview;
 

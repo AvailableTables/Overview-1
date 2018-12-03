@@ -1,3 +1,4 @@
-import App from './index.jsx'
+import Overview from './index.jsx'
 
-window.Overview = App;
+console.log('Overview in index',Overview )
+window.Overview = Overview;
