@@ -6,7 +6,7 @@ var CompressionPlugin = require('compression-webpack-plugin');
 const client = {
   mode: 'development',
   entry: {
-    app: ['babel-polyfill', `${SRC_DIR}/index.jsx`]
+    app: ['babel-polyfill', `${SRC_DIR}/app.jsx`]
   },
   output: {
     filename: 'bundle.js',
@@ -36,7 +36,7 @@ const client = {
 const server = {
   target: 'node', 
   entry: {
-    app: ['babel-polyfill', `${SRC_DIR}/appserver.js`]
+    app: ['babel-polyfill', `${SRC_DIR}/appserver.jsx`]
   },
   output: {
     filename: 'bundle-server.js',

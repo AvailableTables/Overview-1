@@ -8,31 +8,25 @@ var connection = require('../../db/postgresIndex.js')
 
 
 const ssr = async (id) => {
-  // console.log('This is the id in ssr: ', id)
-  // console.log('IN SSR')
-  console.log("Overview", Overview)  
+ 
+  
     let props = await connection.query(`SELECT * FROM restaurants.overview WHERE rid =${id}`)
                 .then((res) => {return res.rows[0]})
                 .catch((err) => {console.log('There is an error in accessing props', err)})
 
-  // console.log('PROPS',props)
   let component = React.createElement(Overview,props);
-  // console.log('this is the componenet in ssr', component)
+  console.log('this is the component in ssr : ', component)
   let html = ReactDOMServer.renderToString(component);
-  // console.log('the html is :', html)
   return {html, props}; 
 }
 
 
-// const {handleGettingUserId} = require('.../db/methods.js')
 module.exports = {
   get: async (req, res) => {
-    console.log('in get req')
     
 
     let {html, props} = await ssr(req.params.id);
-   console.log('this is props in get :', props)
-   console.log('this is html in get :', html)
+
     res.send(`
     <!DOCTYPE html>
     <html>
@@ -48,7 +42,7 @@ module.exports = {
     </head>
     
     <body>
-      <div id="Overview">${html}</div>
+      <div id="overview">${html}</div>
       <script type="text/javascript" src="/bundle.js"></script>
       <script>
       ReactDOM.hydrate(

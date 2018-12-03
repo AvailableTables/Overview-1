@@ -12,7 +12,7 @@ class Overview extends React.Component {
     this.state = {
       restaurant: null || this.props
     };
-    this.getRestaurant = this.getRestaurant.bind(this);
+    // this.getRestaurant = this.getRestaurant.bind(this);
   }
 
   // componentDidMount() {
@@ -20,40 +20,41 @@ class Overview extends React.Component {
   //   this.getRestaurant(id);
   // }
 
-  getRestaurant(id) {
-    axios
-      .get(`/api/${id}`)
-      .then(({ data }) => {
-        this.setState({
-          restaurant: data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // getRestaurant(id) {
+  //   axios
+  //     .get(`/api/${id}`)
+  //     .then(({ data }) => {
+  //       this.setState({
+  //         restaurant: data
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   render() {
   
     if (this.props) {
       if (this.state.restaurant.private_dining) {
-  
+        console.log('PROPS',this.props)
+        console.log('This is restaurant state : ', this.props)
         return (
           <div className="container">
             <div>
               <h1 id="name">
-                {this.state.restaurant.name}
+                {this.props.name}
               </h1>
               <hr />
             </div>
             <div className="header">
-              <Rating rating={this.state.restaurant.aggregate_score} />
+              <Rating rating={this.props.aggregate_score} />
               <span className="topBar">
-                {Number(this.state.restaurant.aggregate_score).toFixed(1)}
+                {Number(this.props.aggregate_score).toFixed(1)}
               </span>
               <i className="far fa-comment-alt fa-lg fa-flip-horizontal" />
               <span className="topBar">
-                {this.state.restaurant.review_count} reviews
+                {this.props.review_count} reviews
               </span>
               <svg
                 width="24px"
@@ -134,7 +135,7 @@ class Overview extends React.Component {
                 </g>
               </svg>
               <span className="topBar">
-                {this.state.restaurant.price_quantile}
+                {this.props.price_quantile}
               </span>
               <svg
                 width="24px"
@@ -171,11 +172,11 @@ class Overview extends React.Component {
                   </g>
                 </g>
               </svg>
-              <span className="topBar">{this.state.restaurant.cuisine.slice(1,-2).split(',')[0]}</span>
+              <span className="topBar">{this.props.cuisine.slice(1,-3).split(',')[0]}</span>
             </div>
             <div id="ulTag">
               <span id="tag">Top Tags:</span>
-              {this.state.restaurant.tags.slice(1).split(',').map((tag, index) => {
+              {this.props.tags.slice(1,-1).split(',').map((tag, index) => {
                 return (
                   <li className="liTag" key={index}>
                     <div className="divTag">
@@ -186,10 +187,10 @@ class Overview extends React.Component {
               })}
             </div>
             <div>
-              <Description description={this.state.restaurant.decriptions} />
+              <Description description={this.props.decriptions} />
             </div>
             <div>
-              <DetailsWithPrivateDining restaurant={this.state.restaurant} />
+              <DetailsWithPrivateDining restaurant={this.props} />
             </div>
           </div>
         );
@@ -198,19 +199,19 @@ class Overview extends React.Component {
           <div className="container">
             <div>
               <h1 id="name">
-                {this.state.restaurant.name}
+                {this.props.name}
               </h1>
               <hr />
             </div>
             <div className="header">
-              <Rating rating={this.state.restaurant.aggregate_score} />
+              <Rating rating={this.props.aggregate_score} />
               <span className="topBar">
-                {Number(this.state.restaurant.aggregate_score).toFixed(1)}
+                {Number(this.props.aggregate_score).toFixed(1)}
               </span>
               <i className="far fa-comment-alt fa-lg fa-flip-horizontal" />
               <span className="topBar">
                 {" "}
-                {this.state.restaurant.review_count} reviews
+                {this.props.review_count} reviews
               </span>
               <svg
                 width="24px"
@@ -291,7 +292,7 @@ class Overview extends React.Component {
                 </g>
               </svg>
               <span className="topBar">
-                {this.state.restaurant.price_quantile}
+                {this.props.price_quantile}
               </span>
               <svg
                 width="24px"
@@ -328,11 +329,11 @@ class Overview extends React.Component {
                   </g>
                 </g>
               </svg>
-              {/* <span className="topBar">{this.state.restaurant.cuisine.slice(1).split(',')[0]}</span> */}
+              {/* <span className="topBar">{this.props.cuisine.slice(1).split(',')[0]}</span> */}
             </div>
             <div id="ulTag">
               <span id="tag">Top Tags:</span>
-              {this.state.restaurant.tags.slice(1,-2).split('').map((tag, index) => {
+              {this.props.tags.slice(1,-2).split('').map((tag, index) => {
                 return (
                   <li className="liTag" key={index}>
                     <div className="divTag">
@@ -344,10 +345,10 @@ class Overview extends React.Component {
             </div>
             <div>
             
-              <Description description={this.state.restaurant.decriptions} />
+              <Description description={this.props.decriptions} />
             </div>
             <div>
-              <Details restaurant={this.state.restaurant} />
+              <Details restaurant={this.props} />
             </div>
           </div>
         );
