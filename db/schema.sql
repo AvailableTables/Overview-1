@@ -14,7 +14,7 @@ CREATE TABLE restaurants.overview (
     price_quantile VARCHAR(100), 
     cuisine VARCHAR(400), 
     tags VARCHAR(400),  
-    decription VARCHAR(750),
+    decriptions VARCHAR(750),
     private_dining  VARCHAR(450),  
     dining_style VARCHAR(300), 
     hour VARCHAR(500), 

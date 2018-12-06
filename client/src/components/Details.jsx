@@ -196,7 +196,7 @@ class Details extends React.Component {
                       <span className="sectionName">Hours of operation</span>
                       <br />
                       <span className="sectionDescription">
-                        {this.props.restaurant.hours.map((hour, index) => {
+                        {this.props.restaurant.hour.map((hour, index) => {
                           return (
                             <li style={{ listStyleType: "none" }} key={index}>{hour}</li>
                           );
@@ -1610,7 +1610,7 @@ class Details extends React.Component {
                   <span className="sectionName">Hours of operation</span>
                   <br />
                   <span className="sectionDescription">
-                    {this.props.restaurant.hours.split(',').map((hour, index) => {
+                    {this.props.restaurant.hour.split(',').map((hour, index) => {
                       return <li style={{ listStyleType: "none" }} key={index}>{hour}</li>;
                     })}
                   </span>
