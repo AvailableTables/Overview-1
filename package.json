@@ -14,8 +14,8 @@
     "seed": "node db/dataGeneration.js",
     "pgSeed": "node db/sqldatageneration.js",
     "pgConnect": "psql --host=2.3.16.49.251 --port=5432 --dbname=postgres --username=ubuntu",
-    "aws-db-connect": "chmod 400 pg.pem  && ssh -i \"pg.pem\" ubuntu@ec2-3-16-49-251.us-east-2.compute.amazonaws.com",
-    "aws-service-connect": "chmod 400 service.pem  && ssh -i \"service.pem\" ubuntu@ec2-18-222-147-215.us-east-2.compute.amazonaws.com"
+    "aws-db-connect": "chmod 400 sdc.pem  && ssh -i \"trial.pem\" ubuntu@ec2-3-16-49-251.us-east-2.compute.amazonaws.com",
+    "aws-service-connect": "chmod 400 sdcproxy.pem  && ssh -i \"sdcproxy.pem\" ubuntu@ec2-18-222-147-215.us-east-2.compute.amazonaws.com"
   },
   "author": "Maria Chung",
   "contributor": "Elizabeth Lang",

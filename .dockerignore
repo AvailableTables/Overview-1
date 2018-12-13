@@ -1,6 +1,12 @@
 node_modules
 **/*.log
-
+dbrestPG.csv
 **/*.pem
+*.pem
 **/*.csv
+*.csv
+*.txt
 newrelic.js
+*.git
+
+**/*.git

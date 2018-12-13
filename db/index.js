@@ -46,7 +46,6 @@ const OverviewSchema = new Schema({
   private_dining_details: String //
 })
 
-// OverviewSchema.plugin(autoIncrement.plugin, {model: 'Overview', field: 'rid', startAt: 1, incrementBy: 1})
 const Overview = mongoose.model('Overview', OverviewSchema, 'overview');
 
 mongoose.Promise = Promise;

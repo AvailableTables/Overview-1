@@ -4,27 +4,25 @@ var nameData = require('./name_data.js');
 var phoneNumberData = require('./phone_number_data.js');
 var loremIpsum = require('lorem-ipsum');
 var axios = require('axios');
-// var config = require('../config.js');
 var faker = require('faker');
-var {db, Overview} = require('../db/index.js');
+var { db, Overview } = require('../db/index.js');
 var fs = require('fs');
 
-// var MongoClient = require('mongodb').MongoClient; 
-// var url = 'mongodb://localhost:3010';
+
 
 var price_symbols = ['$30 and under', '$31 to $50', '$50 and over'];
-var cuisines = ['American', 'Italian', 'Steakhouse', 'Seafood', 'French', 'Indian', 'Mexican', 'Japanese', 'British', 'Chinese', 'German', 'Spanish', 
-'Pizzeria', 'Fusion / Eclectic', 'Barbecue', 'Greek', 'Tapas / Small Plates', 'Grill', 'Comfort Food', 'Turkish', 'Irish', 'Argentinean', 'Afternoon Tea',
-'Portuguese', 'Burgers', 'Brazilian', 'Korean', 'Australian', 'Cuban', 'Organic', 'Austrian', 'Russian', 'Vegetarian / Vegan', 'Belgian', 'Breakfast', 'Dessert',
-'Swiss', 'Halal', 'Asian', 'Bar / Lounge / Bottle Service', 'Beer Garden', 'Bistro', 'Café', 'Californian', 'Caribbean', 'Contemporary Asian', 'Contemporary European',
-'Contemporary French', 'Continental', 'Deli', 'Dim Sum', 'Dining Bar', 'Dinner Cruise', 'Eastern European', 'European' ,'Farm-to-table', 'Gastro Pub',
-'Global, International', 'International', 'Latin / Spanish', 'Latin American', 'Mediterranean', 'Middle Eastern', 'Pan-Asian', 'Peruvian', 'Ramen', 'South American',
-'Thai', 'Wine Bar'];
+var cuisines = ['American', 'Italian', 'Steakhouse', 'Seafood', 'French', 'Indian', 'Mexican', 'Japanese', 'British', 'Chinese', 'German', 'Spanish',
+  'Pizzeria', 'Fusion / Eclectic', 'Barbecue', 'Greek', 'Tapas / Small Plates', 'Grill', 'Comfort Food', 'Turkish', 'Irish', 'Argentinean', 'Afternoon Tea',
+  'Portuguese', 'Burgers', 'Brazilian', 'Korean', 'Australian', 'Cuban', 'Organic', 'Austrian', 'Russian', 'Vegetarian / Vegan', 'Belgian', 'Breakfast', 'Dessert',
+  'Swiss', 'Halal', 'Asian', 'Bar / Lounge / Bottle Service', 'Beer Garden', 'Bistro', 'Café', 'Californian', 'Caribbean', 'Contemporary Asian', 'Contemporary European',
+  'Contemporary French', 'Continental', 'Deli', 'Dim Sum', 'Dining Bar', 'Dinner Cruise', 'Eastern European', 'European', 'Farm-to-table', 'Gastro Pub',
+  'Global, International', 'International', 'Latin / Spanish', 'Latin American', 'Mediterranean', 'Middle Eastern', 'Pan-Asian', 'Peruvian', 'Ramen', 'South American',
+  'Thai', 'Wine Bar'];
 var private_dining = [true, false];
 var dining_style = ['Casual Dining', 'Casual Elegant'];
-var hours = [['Monday - 11:30 AM – Midnight','Tuesday - 11:30 AM – Midnight','Wednesday - 11:00 AM – Midnight','Thursday - 11:30 AM – Midnight','Friday - 11:30 AM – Midnight','Saturday - 11:00 AM – Midnight','Sunday - 11:00 AM – 11:30 PM'],
+var hours = [['Monday - 11:30 AM – Midnight', 'Tuesday - 11:30 AM – Midnight', 'Wednesday - 11:00 AM – Midnight', 'Thursday - 11:30 AM – Midnight', 'Friday - 11:30 AM – Midnight', 'Saturday - 11:00 AM – Midnight', 'Sunday - 11:00 AM – 11:30 PM'],
 ['Monday-Friday', 'Lunch: 11:30AM-3:30PM', 'Monday – Wednesday', 'Dinner: 5:30PM-12:30AM', 'Thursday – Friday', 'Dinner: 5:30PM-1:00AM', 'Saturday', 'Brunch: 11:00AM-3:30PM', 'Dinner: 5:30PM-1:00AM', 'Sunday', 'Brunch: 11:00AM-3:30PM', 'Dinner: 5:30PM-12:30AM'],
-['M-Th: 11:30 a.m. – midnight', 'Fri: 11:30 a.m. – 1:00 a.m.', 'Sat: 10:00 a.m. – 1:00 a.m.', 'Sun: 10:00 a.m. – midnight'], 
+['M-Th: 11:30 a.m. – midnight', 'Fri: 11:30 a.m. – 1:00 a.m.', 'Sat: 10:00 a.m. – 1:00 a.m.', 'Sun: 10:00 a.m. – midnight'],
 ['Monday & Tuesday 5:30pm - 11:00pm', 'Wednesday & Thursday 5:30pm - 12:00am', 'Friday & Saturday 5:00pm - 1:00am', 'Sunday 5:00pm - 11:00pm'],
 ['Sunday – Wednesday: 5pm – 12am', 'Thursday – Saturday: 5pm – 2am', 'Last dinner reservations at 11:45am (Sun - Wed) and 1:45am (Thu - Sat).', 'Restaurant Bar remains open at least one hour after the kitchen closes.']]
 var phone_number_area_code = ['(212) ', '(646) '];
@@ -50,7 +48,7 @@ var callData = () => {
   while (batch < 10000) {
     batch++
     count++
-      var rest = {};
+    var rest = {};
       rest.rid = count;
       rest.name = faker.lorem.word();
       rest.review_count = Math.floor(Math.random() * (100 - 1) + 1);
@@ -78,45 +76,35 @@ var callData = () => {
       rest.entertainment = faker.lorem.sentences(),
       rest.special_events_promotions = faker.lorem.sentences(),
       rest.additional = additional[Math.floor(Math.random() * additional.length)],
-      iterationCount++
+    iterationCount++
     data += JSON.stringify(rest)
 
 
-    // console.log('data in while loop', data)
   }
-  // console.log('THE DATA', data)
-  // return data; 
 
-  // stream.on('drain', function() {
-  //   console.log('drain');
-  //   console.log(Date.now() - start) // never happen
-  // });
-  // stream.write(data)
-  // i++
   return data;
 
-  // writeData('./rest.txt',data)
+
 }
 
 var stream = fs.createWriteStream(__dirname + '/dataGeneration.csv');
 
 stream.on('drain', function () {
-  console.log('DRAIN called', iterationCount, count)
   write();
 });
 write();
 
 
- function write() {
-  while (iterationCount < 10000000) { // 1Gtimes
-  
+function write() {
+  while (iterationCount < 10000000) {
+
     if (!stream.write(callData())) {
       return;
     }
   }
 
-  // console.log((Date.now() - start) / 1000)
- stream.end();
+
+  stream.end();
 }
 
 
@@ -126,6 +114,3 @@ write();
 
 
 
- // console.log(callData())
-// writeData('./names.txt', 'hiiiiiiii', ()=> (console.log('can you please work?')))
-// writeData('./newFile.txt',callData()

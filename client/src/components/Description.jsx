@@ -17,7 +17,6 @@ class Description extends React.Component {
 
   render() { 
     if (this.state.readState) {
-      console.log('PROPS',this.props.description)
       return ( 
         <div>
           <div id="descriptionReadFalse">{this.props.description}</div>
@@ -26,7 +25,6 @@ class Description extends React.Component {
       );
     }
      else {
-      console.log('PROPS',this.props.description)
       return (
         <div>
           <div id="descriptionReadTrue">{this.props.description}</div>

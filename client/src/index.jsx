@@ -12,33 +12,14 @@ class Overview extends React.Component {
     this.state = {
       restaurant: null || this.props
     };
-    // this.getRestaurant = this.getRestaurant.bind(this);
   }
 
-  // componentDidMount() {
-  //   var id = window.location.pathname.slice(13);
-  //   this.getRestaurant(id);
-  // }
 
-  // getRestaurant(id) {
-  //   axios
-  //     .get(`/api/${id}`)
-  //     .then(({ data }) => {
-  //       this.setState({
-  //         restaurant: data
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
 
   render() {
   
     if (this.props) {
       if (this.state.restaurant.private_dining) {
-        console.log('PROPS',this.props)
-        console.log('This is restaurant state : ', this.props)
         return (
           <div className="container">
             <div>

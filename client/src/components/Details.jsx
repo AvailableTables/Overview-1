@@ -18,7 +18,6 @@ class Details extends React.Component {
 
   render() {
     if (!this.state.readDetails) {
-      console.log('IN details !state', this.props.restaurant)
       return (
         
         <div>
@@ -1448,7 +1447,6 @@ class Details extends React.Component {
         </div>
       );
     } else {
-      console.log('IN details state', this.props.restaurant)
       return (
         <div id="section">
           <div className="row">

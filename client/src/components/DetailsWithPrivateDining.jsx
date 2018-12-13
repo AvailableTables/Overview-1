@@ -19,7 +19,6 @@ class DetailsWithPrivateDining extends React.Component {
 
   render() {
     if (!this.state.readDetails) {
-      console.log('IN DWPD',this.props.restaurant)
       return (
         <div>
           <div id="table">
