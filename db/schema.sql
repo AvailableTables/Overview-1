@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS restaurants.overview;
 DROP SCHEMA IF EXISTS restaurants; 
 CREATE SCHEMA restaurants;
 
--- \c restaurants 
+ 
 CREATE TABLE restaurants.overview (
     rid SERIAL PRIMARY KEY,
     name VARCHAR(50), 
@@ -36,6 +36,3 @@ CREATE TABLE restaurants.overview (
 
 \COPY restaurants.overview FROM 'dbPG.csv' WITH DELIMITER AS '^' CSV;
 CREATE INDEX id on restaurants.overview(rid); 
--- SELECT COUNT(DISTINCT restaurants.overview) FROM `information_schema`.`columns` WHERE `res` = 'your_db_name'
-
--- ('rid', 'name', 'review_count', 'display_address', 'display_phone',  'website',  'aggregate_score',   'price_quantile',  'cuisine',  'tags',  'private_dining',    'dining_style', 'hour',  'payment_options',   'dress_code',  'executive_chef',   'catering',   'private_party_facilities',   'private_party_contact_name',   'private_party_contact_number',     'neighborhood',   'cross_street',  'parking_details',   'public_transit',  'entertainment',  'special_events_promotions',  additional )

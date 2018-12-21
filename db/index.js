@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 // const autoIncrement = require('mongoose-auto-increment');
 
 
-mongoose.connect('mongodb://localhost/restaurants') //hosted version from mlab
+mongoose.connect('mongodb://localhost/restaurants') //hosted locally
 
 const db = mongoose.connection;
-// autoIncrement.initialize(db);
 
 const Schema = mongoose.Schema;
 

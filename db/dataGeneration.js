@@ -77,7 +77,7 @@ var callData = () => {
       rest.special_events_promotions = faker.lorem.sentences(),
       rest.additional = additional[Math.floor(Math.random() * additional.length)],
     iterationCount++
-    data += JSON.stringify(rest)
+    data += JSON.stringify(rest);
 
 
   }
