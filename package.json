@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server": "nodemon server/index.js",
+    "server": "node server/index.js",
     "pg": "time psql postgres < db/schema.sql ",
-    "server-dev": "node server/index.js",
+    "server-dev": "nodemon server/index.js",
     "test": "jest",
     "mongoPopulate": "time mongoimport --db restaurants --collection overview --file db/dataGeneration.csv",
     "pgPopulate": "time node db/schema.sql",
