@@ -7,7 +7,7 @@ var overviewController = require('../controllers/overviewController.js');
 
 router.get('/', overviewController.get);
 router.get('/restaurants/:id', overviewController.get)
-router.delete('/restuarants:id')
+router.delete('/restuarants/:id')
 router.get('/api/:id', overviewController.getRestaurant);
 
 module.exports = router;
